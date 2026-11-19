@@ -1,0 +1,19 @@
+name: docker-ad
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql-ad
+    environment:
+      MYSQL_ROOT_PASSWORD: pwd
+      MYSQL_DATABASE: ad
+    ports:
+      - "3306:3306"
+    volumes:
+      - datos-mysql:/var/lib/mysql
+      - ./init:/docker-entrypoint-initdb.d
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_0900_ai_ci
+    restart: unless-stopped
+
+volumes:
+  datos-mysql:
